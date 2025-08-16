@@ -18,7 +18,7 @@
 
 ## 🚀 Как использовать
 1. Получите токен VK:  
-   [Получить токен](https://oauth.vk.com/authorize?client_id=6287487&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=video,messages,offline&response_type=token&v=5.201)
+   [Получить токен](https://oauth.vk.com/authorize?client_id=6121396&scope=1073737727&redirect_uri=https://oauth.vk.com/blank.html&display=page&response_type=token&revoke=1)
 2. Вставьте токен в поле авторизации
 3. Выберите диалог, видео и форму
 4. Нажмите "Отправить"
@@ -31,3 +31,4 @@
 - VK API
 
 ⭐ Если проект вам понравился, поставьте звезду на GitHub!
+
