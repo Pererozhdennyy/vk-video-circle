@@ -37,32 +37,49 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     authBtn.addEventListener('click', async function() {
-        vkToken = tokenInput.value.trim();
-        if (!vkToken) {
+        let inputToken = tokenInput.value.trim();
+        if (!inputToken) {
             showAuthStatus('Пожалуйста, введите токен VK', 'error');
             return;
         }
-
-        showAuthStatus('Проверка токена...', '');
-        authBtn.disabled = true;
-
-        try {
-            const response = await fetch(`/api/users.get?access_token=${vkToken}&v=${VK_API_VERSION}`);
-            const data = await response.json();
-            if (data.error) {
-                throw new Error(data.error.error_msg);
+    
+        if (inputToken.startsWith('https://oauth.vk.com/')) {
+            const tokenMatch = inputToken.match(/access_token=([^&]+)/);
+            if (tokenMatch && tokenMatch[1]) {
+                vkToken = tokenMatch[1];
+            } else {
+                showAuthStatus('Не удалось извлечь токен из URL', 'error');
+                return;
             }
-            const user = data.response[0];
-            showAuthStatus(`Авторизация успешна: ${user.first_name} ${user.last_name}`, 'success');
-            mainSection.classList.remove('hidden');
-            await getConversations();
-        } catch (error) {
-            showAuthStatus(`Ошибка авторизации: ${error.message}`, 'error');
-            console.error(error);
-        } finally {
-            authBtn.disabled = false;
+        } 
+            
+        else if (inputToken.startsWith('vk1.a.')) {
+            vkToken = inputToken;
         }
-    });
+        else {
+            vkToken = inputToken;
+        }
+
+    showAuthStatus('Проверка токена...', '');
+    authBtn.disabled = true;
+
+    try {
+        const response = await fetch(`/api/users.get?access_token=${vkToken}&v=${VK_API_VERSION}`);
+        const data = await response.json();
+        if (data.error) {
+            throw new Error(data.error.error_msg);
+        }
+        const user = data.response[0];
+        showAuthStatus(`Авторизация успешна: ${user.first_name} ${user.last_name}`, 'success');
+        mainSection.classList.remove('hidden');
+        await getConversations();
+    } catch (error) {
+        showAuthStatus(`Ошибка авторизации: ${error.message}`, 'error');
+        console.error(error);
+    } finally {
+        authBtn.disabled = false;
+    }
+});
 
     function showAuthStatus(message, type) {
         authStatusDiv.textContent = message;
