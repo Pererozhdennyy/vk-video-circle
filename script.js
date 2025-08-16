@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         authBtn.disabled = true;
 
         try {
-            const response = await fetch(`https://api.vk.com/method/users.get?access_token=${vkToken}&v=${VK_API_VERSION}`);
+            const response = await fetch(`/api/users.get?access_token=${vkToken}&v=${VK_API_VERSION}`);
             const data = await response.json();
             if (data.error) {
                 throw new Error(data.error.error_msg);
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadMoreBtn.textContent = 'Загрузка...';
             }
 
-            const response = await fetch(`https://api.vk.com/method/messages.getConversations?access_token=${vkToken}&v=${VK_API_VERSION}&count=10&offset=${currentOffset}`);
+            const response = await fetch(`/api/messages.getConversations?access_token=${vkToken}&v=${VK_API_VERSION}&count=10&offset=${currentOffset}`);
             const data = await response.json();
 
             if (data.error) {
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (userIds.length > 0) {
-                const profilesResponse = await fetch(`https://api.vk.com/method/users.get?access_token=${vkToken}&v=${VK_API_VERSION}&user_ids=${userIds.join(',')}&fields=photo_100`);
+                const profilesResponse = await fetch(`/api/users.get?access_token=${vkToken}&v=${VK_API_VERSION}&user_ids=${userIds.join(',')}&fields=photo_100`);
                 const profilesData = await profilesResponse.json();
 
                 if (profilesData.response) {
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (groupIds.length > 0) {
     try {
-        const groupsResponse = await fetch(`https://api.vk.com/method/groups.getById?access_token=${vkToken}&v=${VK_API_VERSION}&group_ids=${groupIds.join(',')}`);
+        const groupsResponse = await fetch(`/api/groups.getById?access_token=${vkToken}&v=${VK_API_VERSION}&group_ids=${groupIds.join(',')}`);
         const groupsData = await groupsResponse.json();
 
         if (groupsData.error) {
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
             statusDiv.className = '';
             sendBtn.disabled = true;
 
-            const uploadInfoResponse = await fetch(`https://api.vk.com/method/video.getVideoMessageUploadInfo?access_token=${vkToken}&v=${VK_API_VERSION}&shape_id=${shapeId}`);
+            const uploadInfoResponse = await fetch(`/api/video.getVideoMessageUploadInfo?access_token=${vkToken}&v=${VK_API_VERSION}&shape_id=${shapeId}`);
             const uploadInfo = await uploadInfoResponse.json();
 
             if (uploadInfo.error) {
@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(uploadResult.error);
             }
 
-            const sendResponse = await fetch(`https://api.vk.com/method/messages.send?access_token=${vkToken}&v=${VK_API_VERSION}&peer_id=${selectedConversation}&random_id=0&attachment=video_message${uploadResult.owner_id}_${uploadResult.video_id}`);
+            const sendResponse = await fetch(`/api/messages.send?access_token=${vkToken}&v=${VK_API_VERSION}&peer_id=${selectedConversation}&random_id=0&attachment=video_message${uploadResult.owner_id}_${uploadResult.video_id}`);
             const sendResult = await sendResponse.json();
 
             if (sendResult.error) {
