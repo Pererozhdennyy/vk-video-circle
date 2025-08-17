@@ -57,10 +57,11 @@ document.addEventListener('DOMContentLoaded', function() {
             vkToken = inputToken;
         }
         else {
-            vkToken = inputToken;
+            showAuthStatus('Неверный формат токена', 'error')
+            return;
         }
 
-    showAuthStatus('Проверка токена...', '');
+    showAuthStatus('Проверка токена...', 'error');
     authBtn.disabled = true;
 
     try {
