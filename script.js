@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
     
-        if (inputToken.startsWith('https://oauth.vk.com/')) {
+        if (inputToken.startsWith('https://oauth.vk.ru/')) {
             const tokenMatch = inputToken.match(/access_token=([^&]+)/);
             if (tokenMatch && tokenMatch[1]) {
                 vkToken = tokenMatch[1];
@@ -114,7 +114,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (item.conversation.peer.type === 'user') {
                     userIds.push(item.conversation.peer.id);
                 } else if (item.conversation.peer.type === 'chat') {
-                    // Для чатов получаем информацию об отправителе последнего сообщения
                     if (item.last_message.from_id > 0) {
                         userIds.push(item.last_message.from_id);
                     }
@@ -167,17 +166,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (item.conversation.peer.type === 'user') {
                     const user = profiles[item.conversation.peer.id] || {};
                     title = `${user.first_name || ''} ${user.last_name || ''}`.trim() || `Пользователь ${item.conversation.peer.id}`;
-                    avatar = user.photo_100 || 'https://vk.com/images/camera_100.png';
+                    avatar = user.photo_100 || 'https://vk.ru/images/camera_100.png';
                 } else if (item.conversation.peer.type === 'chat') {
                     title = item.conversation.chat_settings?.title || `Чат ${item.conversation.peer.id}`;
-                    avatar = item.conversation.chat_settings?.photo?.photo_100 || 'https://vk.com/images/camera_100.png';
+                    avatar = item.conversation.chat_settings?.photo?.photo_100 || 'https://vk.ru/images/camera_100.png';
                 } else if (item.conversation.peer.type === 'group') {
                     const group = groups[-item.conversation.peer.id] || {};
                     title = group.name || `Группа ${-item.conversation.peer.id}`;
-                    avatar = group.photo_100 || 'https://vk.com/images/camera_100.png';
+                    avatar = group.photo_100 || 'https://vk.ru/images/camera_100.png';
                 } else {
                     title = `Диалог ${item.conversation.peer.id}`;
-                    avatar = 'https://vk.com/images/camera_100.png';
+                    avatar = 'https://vk.ru/images/camera_100.png';
                 }
 
                 conversation.innerHTML = `
@@ -224,15 +223,14 @@ document.addEventListener('DOMContentLoaded', function() {
         getConversations(true);
     });
 
-    // Обработка выбора файла
     videoFileInput.addEventListener('change', function() {
         if (this.files && this.files[0]) {
             fileNameSpan.textContent = this.files[0].name;
-            videoStatusDiv.style.display = 'flex'; // Показываем статус
+            videoStatusDiv.style.display = 'flex';
             fileLabel.style.backgroundColor = 'var(--success-color)';
             fileLabel.style.color = '#3c763d';
         } else {
-            videoStatusDiv.style.display = 'none'; // Скрываем статус
+            videoStatusDiv.style.display = 'none';
             fileNameSpan.textContent = 'Выберите видео файл';
             fileLabel.style.backgroundColor = 'var(--primary-color)';
             fileLabel.style.color = 'white';
