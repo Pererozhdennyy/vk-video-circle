@@ -1,6 +1,7 @@
 [[redirects]]
   from = "/api/*"
-  to = "https://api.vk.com/method/:splat"
+  to = "https://api.vk.ru/method/:splat"
   status = 200
   force = true
+
   headers = {Access-Control-Allow-Origin = "*"}
