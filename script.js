@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
     
-        if (inputToken.startsWith('https://oauth.vk.ru/')) {
+        if (inputToken.startsWith('https://oauth.vk.ru/') || inputToken.startsWith('https://oauth.vk.com/')) {
             const tokenMatch = inputToken.match(/access_token=([^&]+)/);
             if (tokenMatch && tokenMatch[1]) {
                 vkToken = tokenMatch[1];
