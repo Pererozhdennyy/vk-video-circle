@@ -56,10 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
         else if (inputToken.startsWith('vk1.a.')) {
             vkToken = inputToken;
         }
-        else {
-            showAuthStatus('Неверный формат токена', 'error')
-            return;
-        }
+        //else {
+        //    showAuthStatus('Неверный формат токена', 'error')
+        //    return;
+        //}
 
     showAuthStatus('Проверка токена...', 'error');
     authBtn.disabled = true;
