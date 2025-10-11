@@ -25,9 +25,11 @@
 
 ## 🌐 Демо
 [Открыть на Netlify](https://vk-circle.netlify.app/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/af4b076c-7d59-434b-aa92-24fe9caa71b6/deploy-status)](https://app.netlify.com/projects/vk-circle/deploys)
 
 ## 🛠 Технологии
 - HTML5, CSS3, JavaScript
 - VK API
 
 ⭐ Если проект вам понравился, поставьте звезду на GitHub!
+
